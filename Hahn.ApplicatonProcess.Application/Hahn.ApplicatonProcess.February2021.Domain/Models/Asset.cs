@@ -20,7 +20,7 @@ namespace Hahn.ApplicatonProcess.February2021.Domain.Models
             set
             {
 
-                value = purchaseDate.ToUniversalTime();
+                purchaseDate = value.ToUniversalTime();
             }
 
         }
