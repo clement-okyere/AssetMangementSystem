@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Hahn.ApplicatonProcess.February2021.Data.CountryClient
 {
-    public class CountryClient: ICountryClient
+    public class CountryClient
     {
         private HttpClient _client;
 
