@@ -42,5 +42,14 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
             _unitOfWork.Save();
             return Ok();
         }
+
+        [HttpPut("id")]
+        [ProducesResponseType(200)]
+        public IActionResult Update([FromQuery] int id, [FromBody] Asset asset)
+        {
+            _unitOfWork.Asset.Update(id, asset);
+            _unitOfWork.Save();
+            return Ok();
+        }
     }
 }
