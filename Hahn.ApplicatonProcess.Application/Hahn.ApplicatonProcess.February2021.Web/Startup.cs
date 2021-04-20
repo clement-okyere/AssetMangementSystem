@@ -1,5 +1,9 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Hahn.ApplicatonProcess.February2021.Data.CountryClient;
 using Hahn.ApplicatonProcess.February2021.Data.Data;
+using Hahn.ApplicatonProcess.February2021.Domain.Models;
+using Hahn.ApplicatonProcess.February2021.Domain.Validators;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -37,6 +41,8 @@ namespace Hahn.ApplicatonProcess.February2021.Web
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Hahn.ApplicatonProcess.February2021.Web", Version = "v1" });
             });
+            services.AddMvc().AddFluentValidation();
+            services.AddTransient<IValidator<Asset>, AssetValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
