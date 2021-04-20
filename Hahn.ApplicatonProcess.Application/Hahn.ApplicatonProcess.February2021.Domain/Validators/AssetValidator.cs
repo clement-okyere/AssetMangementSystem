@@ -5,6 +5,8 @@ using Itenso.TimePeriod;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,8 +21,6 @@ namespace Hahn.ApplicatonProcess.February2021.Domain.Validators
 
             RuleFor(x => x.AssetName).MinimumLength(5).WithMessage("AssetName should be at least five characters long");
             RuleFor(x => x.Department).IsInEnum();
-            //RuleFor(x => x.CountryofDepartment).
-
             RuleFor(x => x.CountryofDepartment).MustAsync(async (country, cancellation) =>
             {
                 bool exists = await _client.GetCountryByName(country);
