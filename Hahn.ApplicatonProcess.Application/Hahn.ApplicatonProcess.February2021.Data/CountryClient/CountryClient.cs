@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hahn.ApplicatonProcess.February2021.Domain.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Hahn.ApplicatonProcess.February2021.Data.CountryClient
 {
-    public class CountryClient 
+    public class CountryClient: ICountryClient
     {
         private HttpClient _client;
 
