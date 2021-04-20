@@ -12,30 +12,32 @@ namespace Hahn.ApplicatonProcess.February2021.Data.Repositories
 {
     public class AssetRepository : IAssetRepository
     {
-        private AssetContext _context;
+        private readonly AssetContext _context;
+        private readonly DbSet<Asset> _entities;
         public AssetRepository(AssetContext context)
         {
             _context = context;
+            _entities = _context.Set<Asset>();
         }
         public void Add(Asset asset)
         {
-            _context.Assets.Add(asset);
+            _entities.Add(asset);
         }
 
         public void Delete(int id)
         {
             Asset asset = _context.Assets.Find(id);
-            _context.Assets.Remove(asset);
+            _entities.Remove(asset);
         }
 
         public Asset GetByID(int id)
         {
-            return _context.Assets.Find(id);
+            return _entities.Find(id);
         }
 
         public void Update(Asset asset)
         {
-            _context.Assets.Attach(asset);
+            _entities.Attach(asset);
             _context.Entry(asset).State = EntityState.Modified;
         }
     }

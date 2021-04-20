@@ -2,6 +2,9 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Hahn.ApplicatonProcess.February2021.Data.CountryClient;
 using Hahn.ApplicatonProcess.February2021.Data.Data;
+using Hahn.ApplicatonProcess.February2021.Data.Repositories;
+using Hahn.ApplicatonProcess.February2021.Data.UnitOfWork;
+using Hahn.ApplicatonProcess.February2021.Domain.Interfaces;
 using Hahn.ApplicatonProcess.February2021.Domain.Models;
 using Hahn.ApplicatonProcess.February2021.Domain.Validators;
 using Microsoft.AspNetCore.Builder;
@@ -36,13 +39,19 @@ namespace Hahn.ApplicatonProcess.February2021.Web
 
             services.AddControllers();
             services.AddDbContext<AssetContext>(opt => opt.UseInMemoryDatabase("Assets"));
-            services.AddHttpClient<CountryClient>(c => c.BaseAddress =  new System.Uri("https://restcountries.eu/"));
+            services.AddHttpClient<ICountryClient, CountryClient>(client =>
+            {
+                client.BaseAddress = new System.Uri("https://restcountries.eu/");
+            });
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Hahn.ApplicatonProcess.February2021.Web", Version = "v1" });
             });
             services.AddMvc().AddFluentValidation();
             services.AddTransient<IValidator<Asset>, AssetValidator>();
+            services.AddTransient<IAssetRepository, AssetRepository>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
