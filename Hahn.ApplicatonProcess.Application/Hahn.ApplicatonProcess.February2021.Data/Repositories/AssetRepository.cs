@@ -26,7 +26,7 @@ namespace Hahn.ApplicatonProcess.February2021.Data.Repositories
 
         public void Delete(int id)
         {
-            Asset asset = _context.Assets.Find(id);
+            Asset asset = _entities.Find(id);
             _entities.Remove(asset);
         }
 
