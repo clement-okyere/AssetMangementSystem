@@ -1,3 +1,4 @@
+using Hahn.ApplicatonProcess.February2021.Data.CountryClient;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +29,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web
         {
 
             services.AddControllers();
+            services.AddHttpClient<CountryClient>(c => c.BaseAddress =  new System.Uri("https://restcountries.eu/"));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Hahn.ApplicatonProcess.February2021.Web", Version = "v1" });
