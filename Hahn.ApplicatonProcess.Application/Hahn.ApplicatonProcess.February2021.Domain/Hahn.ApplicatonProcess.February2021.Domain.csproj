@@ -6,13 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="10.0.4" />
-    <PackageReference Include="TimePeriodCore" Version="1.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Hahn.ApplicatonProcess.February2021.Data">
-      <HintPath>..\Hahn.ApplicatonProcess.February2021.Data\bin\Debug\net5.0\Hahn.ApplicatonProcess.February2021.Data.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>
