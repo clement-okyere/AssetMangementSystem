@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hahn.ApplicatonProcess.February2021.Domain.Models
 {
@@ -14,6 +15,7 @@ namespace Hahn.ApplicatonProcess.February2021.Domain.Models
         public Department Department { get; set; }
         public string CountryofDepartment { get; set; }
         public  string EmailAddressofDepartment { get; set; }
+        [NotMapped]
         private DateTime purchaseDate { get; set; }
         public DateTime PurchaseDate {
             get { return purchaseDate; }
