@@ -4,4 +4,19 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Hahn.ApplicatonProcess.February2021.Domain">
+      <HintPath>..\Hahn.ApplicatonProcess.February2021.Domain\bin\Debug\net5.0\Hahn.ApplicatonProcess.February2021.Domain.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

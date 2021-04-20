@@ -10,11 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Hahn.ApplicatonProcess.February2021.Data\Hahn.ApplicatonProcess.February2021.Data.csproj" />
+    <Reference Include="Hahn.ApplicatonProcess.February2021.Data">
+      <HintPath>..\Hahn.ApplicatonProcess.February2021.Data\bin\Debug\net5.0\Hahn.ApplicatonProcess.February2021.Data.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
