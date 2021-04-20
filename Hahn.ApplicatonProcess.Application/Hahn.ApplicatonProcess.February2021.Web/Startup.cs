@@ -4,9 +4,9 @@ using Hahn.ApplicatonProcess.February2021.Data.CountryClient;
 using Hahn.ApplicatonProcess.February2021.Data.Data;
 using Hahn.ApplicatonProcess.February2021.Data.Repositories;
 using Hahn.ApplicatonProcess.February2021.Data.UnitOfWork;
+using Hahn.ApplicatonProcess.February2021.Data.Validator;
 using Hahn.ApplicatonProcess.February2021.Domain.Interfaces;
 using Hahn.ApplicatonProcess.February2021.Domain.Models;
-using Hahn.ApplicatonProcess.February2021.Domain.Validators;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,28 +33,32 @@ namespace Hahn.ApplicatonProcess.February2021.Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        //This method gets called by the runtime.Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers()
+            .AddFluentValidation(s =>
+            {
+                s.RegisterValidatorsFromAssemblyContaining<Startup>();
+                s.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
+            });
             services.AddDbContext<AssetContext>(opt => opt.UseInMemoryDatabase("Assets"));
             services.AddHttpClient<ICountryClient, CountryClient>(client =>
             {
                 client.BaseAddress = new System.Uri("https://restcountries.eu/");
             });
-            
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Hahn.ApplicatonProcess.February2021.Web", Version = "v1" });
             });
-            services.AddMvc().AddFluentValidation();
-            services.AddTransient<IValidator<Asset>, AssetValidator>();
+            //services.AddTransient<IValidator<Asset>, AssetValidator>();
             services.AddTransient<IAssetRepository, AssetRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        //This method gets called by the runtime.Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
