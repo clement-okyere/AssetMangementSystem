@@ -35,10 +35,14 @@ namespace Hahn.ApplicatonProcess.February2021.Data.Repositories
             return _entities.Find(id);
         }
 
-        public void Update(Asset asset)
+        public void Update(int id, Asset asset)
         {
-            _entities.Attach(asset);
-            _context.Entry(asset).State = EntityState.Modified;
+            var assetToUpdate = _entities.FirstOrDefault(asset => asset.ID == id);
+            assetToUpdate.CountryofDepartment = asset.CountryofDepartment;
+            assetToUpdate.AssetName = asset.AssetName;
+            assetToUpdate.PurchaseDate = asset.PurchaseDate;
+            assetToUpdate.Department = asset.Department;
+            assetToUpdate.EmailAddressofDepartment = asset.EmailAddressofDepartment;
         }
     }
 }

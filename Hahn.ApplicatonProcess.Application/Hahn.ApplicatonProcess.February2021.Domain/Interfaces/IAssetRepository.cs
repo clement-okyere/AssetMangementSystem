@@ -11,7 +11,7 @@ namespace Hahn.ApplicatonProcess.February2021.Domain.Interfaces
     {
         void Add(Asset asset);
         Asset GetByID(int id);
-        void Update(Asset asset);
+        void Update(int id, Asset asset);
         void Delete(int id);
     }
 }
