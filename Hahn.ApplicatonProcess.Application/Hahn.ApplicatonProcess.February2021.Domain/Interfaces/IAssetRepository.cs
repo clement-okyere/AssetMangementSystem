@@ -13,6 +13,5 @@ namespace Hahn.ApplicatonProcess.February2021.Domain.Interfaces
         Asset GetByID(int id);
         void Update(Asset asset);
         void Delete(int id);
-        void Save();
     }
 }
