@@ -16,6 +16,6 @@ namespace Hahn.ApplicatonProcess.February2021.Data.Data
 
         }
 
-       public DbSet<Asset> Assets {get; set; }
+      public DbSet<Asset> Assets {get; set; }
     }
 }
