@@ -1,8 +1,10 @@
 using Hahn.ApplicatonProcess.February2021.Data.CountryClient;
+using Hahn.ApplicatonProcess.February2021.Data.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,6 +31,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web
         {
 
             services.AddControllers();
+            services.AddDbContext<AssetContext>(opt => opt.UseInMemoryDatabase("Assets"));
             services.AddHttpClient<CountryClient>(c => c.BaseAddress =  new System.Uri("https://restcountries.eu/"));
             services.AddSwaggerGen(c =>
             {
