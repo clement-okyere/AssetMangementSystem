@@ -1,4 +1,5 @@
 ﻿using Hahn.ApplicatonProcess.February2021.Domain.Interfaces;
+using Hahn.ApplicatonProcess.February2021.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,10 +18,20 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
         }
 
         [HttpGet("id")]
+        [ProducesResponseType(typeof(Asset),201)]
         public IActionResult GetById([FromQuery] int id)
         {
             var assets = _unitOfWork.Asset.GetByID(id);
             return Ok(assets);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(201)]
+        public IActionResult Post([FromBody] Asset asset)
+        {
+            _unitOfWork.Asset.Add(asset);
+            _unitOfWork.Save();
+            return CreatedAtAction(nameof(GetById), new { id = asset.ID });
         }
     }
 }

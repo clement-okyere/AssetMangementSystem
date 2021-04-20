@@ -21,7 +21,7 @@ namespace Hahn.ApplicatonProcess.February2021.Data.Repositories
         }
         public void Add(Asset asset)
         {
-            _entities.Add(asset);
+            _entities.Add(asset);          
         }
 
         public void Delete(int id)
