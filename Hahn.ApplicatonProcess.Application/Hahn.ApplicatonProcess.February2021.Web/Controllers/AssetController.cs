@@ -33,5 +33,14 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
             _unitOfWork.Save();
             return CreatedAtAction(nameof(GetById), new { id = asset.ID });
         }
+
+        [HttpDelete]
+        [ProducesResponseType(200)]
+        public IActionResult Delete([FromQuery] int id)
+        {
+            _unitOfWork.Asset.Delete(id);
+            _unitOfWork.Save();
+            return Ok();
+        }
     }
 }
