@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
 using Hahn.ApplicatonProcess.February2021.Data.CountryClient;
+using Hahn.ApplicatonProcess.February2021.Domain.Interfaces;
 using Hahn.ApplicatonProcess.February2021.Domain.Models;
 using Itenso.TimePeriod;
 
@@ -12,8 +13,8 @@ namespace Hahn.ApplicatonProcess.February2021.Data.Validator
 {
     public class AssetValidator : AbstractValidator<Asset>
     {
-        private CountryClient.CountryClient _client;
-        public AssetValidator(CountryClient.CountryClient client)
+        private readonly ICountryClient _client;
+        public AssetValidator(ICountryClient client)
         {
             _client = client;
 
