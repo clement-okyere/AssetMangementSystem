@@ -14,9 +14,10 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<AssetController> _logger;
-        public AssetController(IUnitOfWork unitOfWork)
+        public AssetController(IUnitOfWork unitOfWork, ILogger<AssetController> logger)
         {
             _unitOfWork = unitOfWork;
+            _logger = logger;
         }
 
         [HttpGet("id")]
@@ -32,7 +33,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
         [ProducesResponseType(201)]
         public IActionResult Post([FromBody] Asset asset)
         {
-            _logger.LogInformation("Adding new asset {asset}", asset);
+            _logger.LogInformation("Adding new asset {asset}", asset.AssetName);
             _unitOfWork.Asset.Add(asset);
             _unitOfWork.Save();
             return CreatedAtAction(nameof(GetById), new { id = asset.ID });
