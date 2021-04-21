@@ -4,6 +4,7 @@ using Hahn.ApplicatonProcess.February2021.Data.CountryClient;
 using Hahn.ApplicatonProcess.February2021.Data.Data;
 using Hahn.ApplicatonProcess.February2021.Data.Repositories;
 using Hahn.ApplicatonProcess.February2021.Data.UnitOfWork;
+using Hahn.ApplicatonProcess.February2021.Data.ValidationFilters;
 using Hahn.ApplicatonProcess.February2021.Data.Validator;
 using Hahn.ApplicatonProcess.February2021.Domain.Interfaces;
 using Hahn.ApplicatonProcess.February2021.Domain.Models;
@@ -37,12 +38,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers()
-            .AddFluentValidation(s =>
-            {
-                s.RegisterValidatorsFromAssemblyContaining<Startup>();
-                s.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
-            });
+            // services.AddTransient<IValidator<Asset>, AssetValidator>();
             services.AddDbContext<AssetContext>(opt => opt.UseInMemoryDatabase("Assets"));
             services.AddHttpClient<ICountryClient, CountryClient>(client =>
             {
@@ -53,9 +49,18 @@ namespace Hahn.ApplicatonProcess.February2021.Web
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Hahn.ApplicatonProcess.February2021.Web", Version = "v1" });
             });
-            //services.AddTransient<IValidator<Asset>, AssetValidator>();
+
             services.AddTransient<IAssetRepository, AssetRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddControllers(options =>
+            {
+                options.Filters.Add(typeof(ValidateModelAttribute));
+            })
+            .AddFluentValidation(s =>
+            {
+                s.RegisterValidatorsFromAssemblyContaining<AssetValidator>();
+                s.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
+            });
         }
 
         //This method gets called by the runtime.Use this method to configure the HTTP request pipeline.
