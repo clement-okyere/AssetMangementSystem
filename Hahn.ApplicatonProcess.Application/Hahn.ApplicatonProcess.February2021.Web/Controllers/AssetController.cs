@@ -1,6 +1,7 @@
 ﻿using Hahn.ApplicatonProcess.February2021.Domain.Interfaces;
 using Hahn.ApplicatonProcess.February2021.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
     public class AssetController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ILogger<AssetController> _logger;
         public AssetController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -21,6 +23,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
         [ProducesResponseType(typeof(Asset),201)]
         public IActionResult GetById([FromQuery] int id)
         {
+            _logger.LogInformation($"Fetching asset with id {id}");
             var assets = _unitOfWork.Asset.GetByID(id);
             return Ok(assets);
         }
@@ -29,6 +32,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
         [ProducesResponseType(201)]
         public IActionResult Post([FromBody] Asset asset)
         {
+            _logger.LogInformation("Adding new asset {asset}", asset);
             _unitOfWork.Asset.Add(asset);
             _unitOfWork.Save();
             return CreatedAtAction(nameof(GetById), new { id = asset.ID });
@@ -38,6 +42,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
         [ProducesResponseType(200)]
         public IActionResult Delete([FromQuery] int id)
         {
+            _logger.LogInformation($"Deleting asset with id {id}");
             _unitOfWork.Asset.Delete(id);
             _unitOfWork.Save();
             return Ok();
@@ -47,6 +52,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
         [ProducesResponseType(200)]
         public IActionResult Update([FromQuery] int id, [FromBody] Asset asset)
         {
+            _logger.LogInformation("updating asset with id {id} with {asset}", id, asset);
             _unitOfWork.Asset.Update(id, asset);
             _unitOfWork.Save();
             return Ok();

@@ -21,6 +21,11 @@ namespace Hahn.ApplicatonProcess.February2021.Web
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                })
+                .ConfigureLogging((hostingContext, logging) =>
+                {
+                    logging.AddFilter("Microsoft", LogLevel.Information)
+                    .AddFilter("System", LogLevel.Error);
                 });
     }
 }
