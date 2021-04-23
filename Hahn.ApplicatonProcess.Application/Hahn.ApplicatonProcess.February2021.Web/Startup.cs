@@ -28,6 +28,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web
 {
     public class Startup
     {
+        protected const string CorsPolicyName = "CorsPolicyName";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -50,6 +51,8 @@ namespace Hahn.ApplicatonProcess.February2021.Web
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Hahn.ApplicatonProcess.February2021.Web", Version = "v1" });
             });
+
+            //services.AddCors();
 
             services.AddTransient<IAssetRepository, AssetRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
@@ -81,6 +84,13 @@ namespace Hahn.ApplicatonProcess.February2021.Web
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            // global cors policy
+            //app.UseCors(x => x
+            //    .AllowAnyMethod()
+            //    .AllowAnyHeader()
+            //    .SetIsOriginAllowed(origin => true) // allow any origin
+            //    .AllowCredentials()); // allow credentials
 
             app.UseAuthorization();
 
