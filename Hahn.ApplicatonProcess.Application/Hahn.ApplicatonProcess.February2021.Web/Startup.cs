@@ -65,6 +65,12 @@ namespace Hahn.ApplicatonProcess.February2021.Web
                 s.RegisterValidatorsFromAssemblyContaining<AssetValidator>();
                 s.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
             });
+
+            // In production, the Angular files will be served from this directory
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "web/dist";
+            });
         }
 
         //This method gets called by the runtime.Use this method to configure the HTTP request pipeline.
@@ -82,6 +88,8 @@ namespace Hahn.ApplicatonProcess.February2021.Web
 
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseSpaStaticFiles();
 
             app.UseRouting();
 
@@ -97,6 +105,25 @@ namespace Hahn.ApplicatonProcess.February2021.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSpa(spa =>
+            {
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                spa.Options.SourcePath = "web";
+
+                // In Development env, ClientApp is served by Webpack Dev server
+                // In Production env, ClientApp is served using minified and bundled code from 'ClientApp/dist'
+                if (env.IsDevelopment())
+                {
+                    //spa.UseAngularCliServer(npmScript: "start");
+                    //spa.UseProxyToSpaDevelopmentServer(baseUri: "http://localhost:4200"); // Alternative for Angular
+
+                    // Aurelia Webpack Dev Server
+                    spa.UseProxyToSpaDevelopmentServer(baseUri: "http://localhost:8080");
+                }
             });
         }
     }
