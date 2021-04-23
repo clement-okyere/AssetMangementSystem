@@ -22,11 +22,19 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
 
         [HttpGet("id")]
         [ProducesResponseType(typeof(Asset),201)]
+        [ProducesResponseType(typeof(string), 404)]
         public IActionResult GetById([FromQuery] int id)
         {
             _logger.LogInformation($"Fetching asset with id {id}");
-            var assets = _unitOfWork.Asset.GetByID(id);
-            return Ok(assets);
+            var asset = _unitOfWork.Asset.GetByID(id);
+
+            if (asset == null)
+            {
+                _logger.LogInformation($"Asset with id {id} was not found");
+                return NotFound($"Asset with id {id} was not found");
+            }
+
+            return Ok(asset);
         }
 
         [HttpPost]
