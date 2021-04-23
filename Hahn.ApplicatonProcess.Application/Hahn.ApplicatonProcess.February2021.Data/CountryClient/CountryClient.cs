@@ -18,7 +18,7 @@ namespace Hahn.ApplicatonProcess.February2021.Data.CountryClient
             _client = client;     
         }
 
-        public async Task<bool> GetCountryByName(string country)
+        public async Task<bool> ValidateCountry(string country)
         {
 
             var response = await _client.GetAsync($"/rest/v2/name/{country}?fullText=true");

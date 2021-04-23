@@ -19,10 +19,10 @@ namespace Hahn.ApplicatonProcess.February2021.Data.Validator
             _client = client;
 
             RuleFor(x => x.AssetName).MinimumLength(5).WithMessage("AssetName should be at least five characters long");
-            RuleFor(x => x.Department).IsInEnum();
+            RuleFor(x => x.Department).IsInEnum<Asset, Department>();
             RuleFor(x => x.CountryofDepartment).MustAsync(async (country, cancellation) =>
             {
-                bool exists = await _client.GetCountryByName(country);
+                bool exists = await _client.ValidateCountry(country);
                 return exists;
             }).WithMessage("Country must be valid");
             RuleFor(x => x.PurchaseDate).Custom((purchaseDate, context) =>

@@ -8,6 +8,6 @@ namespace Hahn.ApplicatonProcess.February2021.Domain.Interfaces
 {
     public interface ICountryClient
     {
-        Task<bool> GetCountryByName(string country);
+        Task<bool> ValidateCountry(string country);
     }
 }
