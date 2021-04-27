@@ -39,8 +39,6 @@ namespace Hahn.ApplicatonProcess.February2021.Web
         //This method gets called by the runtime.Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            // services.AddTransient<IValidator<Asset>, AssetValidator>();
             services.AddDbContext<AssetContext>(opt => opt.UseInMemoryDatabase("Assets"));
             services.AddHttpClient<ICountryClient, CountryClient>(client =>
             {
@@ -85,11 +83,12 @@ namespace Hahn.ApplicatonProcess.February2021.Web
 
             loggerFactory.AddSerilog();
                 
-
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseSpaStaticFiles();
+            if (!env.IsDevelopment())
+            {
+                app.UseSpaStaticFiles();
+            }
 
             app.UseRouting();
 
@@ -99,6 +98,9 @@ namespace Hahn.ApplicatonProcess.February2021.Web
             //    .AllowAnyHeader()
             //    .SetIsOriginAllowed(origin => true) // allow any origin
             //    .AllowCredentials()); // allow credentials
+
+           
+            app.UseRouting();
 
             app.UseAuthorization();
 
@@ -115,11 +117,9 @@ namespace Hahn.ApplicatonProcess.February2021.Web
                 spa.Options.SourcePath = "web";
 
                 // In Development env, ClientApp is served by Webpack Dev server
-                // In Production env, ClientApp is served using minified and bundled code from 'ClientApp/dist'
+                // In Production env, ClientApp is served using minified and bundled code from 'web/dist'
                 if (env.IsDevelopment())
                 {
-                    //spa.UseAngularCliServer(npmScript: "start");
-                    //spa.UseProxyToSpaDevelopmentServer(baseUri: "http://localhost:4200"); // Alternative for Angular
 
                     // Aurelia Webpack Dev Server
                     spa.UseProxyToSpaDevelopmentServer(baseUri: "http://localhost:8080");
