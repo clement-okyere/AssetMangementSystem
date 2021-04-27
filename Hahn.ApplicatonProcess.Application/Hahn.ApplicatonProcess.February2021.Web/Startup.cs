@@ -111,9 +111,6 @@ namespace Hahn.ApplicatonProcess.February2021.Web
 
             app.UseSpa(spa =>
             {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
                 spa.Options.SourcePath = "web";
 
                 // In Development env, ClientApp is served by Webpack Dev server
