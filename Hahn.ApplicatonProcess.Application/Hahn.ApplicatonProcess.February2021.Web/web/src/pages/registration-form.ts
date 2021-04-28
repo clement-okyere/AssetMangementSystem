@@ -67,4 +67,9 @@ export class RegistrationForm {
     }
     this.router.navigate("/assets/success");
   }
+
+  reset() {
+          this.asset = new Asset();
+    }
+    
 }
