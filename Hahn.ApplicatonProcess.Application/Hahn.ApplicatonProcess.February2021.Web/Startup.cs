@@ -50,8 +50,6 @@ namespace Hahn.ApplicatonProcess.February2021.Web
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Hahn.ApplicatonProcess.February2021.Web", Version = "v1" });
             });
 
-            //services.AddCors();
-
             services.AddTransient<IAssetRepository, AssetRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddControllers(options =>
@@ -77,9 +75,10 @@ namespace Hahn.ApplicatonProcess.February2021.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Hahn.ApplicatonProcess.February2021.Web v1"));
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Hahn.ApplicatonProcess.February2021.Web v1"));
 
             loggerFactory.AddSerilog();
                 
@@ -91,14 +90,6 @@ namespace Hahn.ApplicatonProcess.February2021.Web
             }
 
             app.UseRouting();
-
-            // global cors policy
-            //app.UseCors(x => x
-            //    .AllowAnyMethod()
-            //    .AllowAnyHeader()
-            //    .SetIsOriginAllowed(origin => true) // allow any origin
-            //    .AllowCredentials()); // allow credentials
-
            
             app.UseRouting();
 
