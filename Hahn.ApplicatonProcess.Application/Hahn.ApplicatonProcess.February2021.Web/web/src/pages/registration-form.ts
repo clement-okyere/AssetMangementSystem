@@ -42,4 +42,14 @@ export class RegistrationForm {
   public activate(params) {
     this.asset = new Asset();
   }
+
+  get canReset() {
+    return (
+      this.asset.assetName ||
+      this.asset.department ||
+      this.asset.countryOfDepartment ||
+      this.asset.emailAddressOfDepartment ||
+      this.asset.purchaseDate
+    );
+  }
 }
