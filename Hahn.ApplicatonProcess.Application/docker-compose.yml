@@ -1,0 +1,10 @@
+version: '3.4'
+# Base config
+services:
+  asset-spa:
+    image: asset-spa
+    build:
+      context: Hahn.ApplicatonProcess.February2021.Web
+    container_name: asset-spa
+    ports: 
+        - 8082:80
