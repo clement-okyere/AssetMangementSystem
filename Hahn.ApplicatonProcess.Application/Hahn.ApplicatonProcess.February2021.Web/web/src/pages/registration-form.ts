@@ -1,7 +1,7 @@
 import { inject } from "aurelia-dependency-injection";
 import { Asset } from "../models/asset";
 import { IDepartment } from "../models/department";
-import { getYearDifference } from "../utils/helper";
+import { getYearDifference, validateCountry } from "../utils/helper";
 import { BootstrapFormRenderer } from "../bootstrap-form-renderer";
 import { Router } from "aurelia-router";
 import {
@@ -78,4 +78,10 @@ ValidationRules.customRule(
   "date",
   (value, _obj) => getYearDifference(value) < 1,
   `\${$displayName} must not be older than one year.`
+);
+
+ValidationRules.customRule(
+    "country",
+    async (value, _obj) => await validateCountry(value),
+    `\${$displayName} is not a valid country.`
 );
