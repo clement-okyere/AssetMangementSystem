@@ -1,0 +1,9 @@
+<template>
+  <ux-dialog>
+    <ux-dialog-header>${question}</ux-dialog-header>
+    <ux-dialog-footer>
+      <button click.trigger="controller.cancel()">Cancel</button>
+      <button click.trigger="controller.ok(answer)">Ok</button>
+    </ux-dialog-footer>
+  </ux-dialog>
+</template>
