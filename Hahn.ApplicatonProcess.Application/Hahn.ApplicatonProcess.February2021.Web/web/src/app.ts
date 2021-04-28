@@ -1,3 +1,18 @@
+import { Router, RouterConfiguration } from "aurelia-router";
+import { inject } from "aurelia-dependency-injection";
+
+@inject(RouterConfiguration, Router)
 export class App {
-  public message = 'Hello World!';
+  router: Router;
+  constructor(router) {}
+
+  configureRouter(config: RouterConfiguration, router: Router) {
+    config.title = "Assets";
+    config.options.pushState = true;
+    config.options.root = "/";
+    config.map(routes);
+
+    this.router = router;
+    console.log("main router", this.router);
+  }
 }
