@@ -1,6 +1,7 @@
 import { inject } from "aurelia-dependency-injection";
 import { Asset } from "../models/asset";
 import { IDepartment } from "../models/department";
+import { BootstrapFormRenderer } from "../bootstrap-form-renderer";
 import {
   Validator,
   ValidationController,
@@ -26,5 +27,6 @@ export class RegistrationForm {
   constructor(controllerFactory) {
     this.controller = controllerFactory.createForCurrentScope();
     this.controller.validateTrigger = validateTrigger.changeOrBlur;
+    this.controller.addRenderer(new BootstrapFormRenderer());
   }
 }
