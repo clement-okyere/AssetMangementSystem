@@ -8,6 +8,7 @@ export function configure(aurelia: Aurelia): void {
   aurelia.use
     .standardConfiguration()
     .plugin(PLATFORM.moduleName("aurelia-validation"))
+    .plugin(PLATFORM.moduleName("aurelia-dialog"))
     .feature(PLATFORM.moduleName("resources/index"));
 
   aurelia.use.developmentLogging(environment.debug ? 'debug' : 'warn');
