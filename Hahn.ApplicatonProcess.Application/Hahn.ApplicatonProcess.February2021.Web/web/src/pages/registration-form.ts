@@ -3,15 +3,19 @@ import { Asset } from "../models/asset";
 import { IDepartment } from "../models/department";
 import { getYearDifference, validateCountry } from "../utils/helper";
 import { BootstrapFormRenderer } from "../bootstrap-form-renderer";
+import { HttpClient } from "aurelia-http-client";
 import { Router } from "aurelia-router";
+import { DialogService } from "aurelia-dialog";
+import { Prompt } from "./prompt";
 import {
   Validator,
   ValidationController,
   validateTrigger,
   ValidationControllerFactory,
-  ValidationRules,
+  ValidationRules
 } from "aurelia-validation";
 
+const API_ENDPOINT = "/api/assets";
 @inject(
   ValidationControllerFactory,
   Validator,
@@ -30,14 +34,23 @@ export class RegistrationForm {
   private asset: Asset;
   public canSave: Boolean;
   controller: ValidationController;
+  httpClient: HttpClient;
   router = null;
+  dialogService = null;
 
-  constructor(controllerFactory, private validator: Validator, router) {
+  constructor(
+    controllerFactory,
+    private validator: Validator,
+    router,
+    dialogService
+  ) {
     this.controller = controllerFactory.createForCurrentScope();
     this.controller.validateTrigger = validateTrigger.changeOrBlur;
     this.controller.addRenderer(new BootstrapFormRenderer());
     this.controller.subscribe((event) => this.validateWhole());
+    this.httpClient = new HttpClient();
     this.router = router;
+    this.dialogService = dialogService;
   }
 
   private validateWhole() {
@@ -66,12 +79,25 @@ export class RegistrationForm {
     if (!this.canSave) {
       return;
     }
-    this.router.navigate("/assets/success");
+
+    this.httpClient
+      .post(API_ENDPOINT, this.asset)
+      .then((response) => {
+        //redirect to success page on success
+        this.router.navigate("/assets/success");
+      })
+      .catch((err) => {
+        this.dialogService.open({
+          viewModel: Prompt,
+          model: "Asset saving failed",
+          lock: false,
+        });
+      });
   }
 
   reset() {
-          this.asset = new Asset();
-    } 
+    this.asset = new Asset();
+  }
 }
 
 ValidationRules.customRule(
