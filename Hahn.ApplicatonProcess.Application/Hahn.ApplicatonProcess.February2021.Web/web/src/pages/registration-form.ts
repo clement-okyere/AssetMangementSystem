@@ -85,3 +85,19 @@ ValidationRules.customRule(
     async (value, _obj) => await validateCountry(value),
     `\${$displayName} is not a valid country.`
 );
+
+ValidationRules.ensure("assetName")
+  .required()
+  .minLength(5)
+  .ensure("department")
+  .required()
+  .ensure("countryOfDepartment")
+  .required()
+  .satisfiesRule("country")
+  .ensure("emailAddressOfDepartment")
+  .required()
+  .email()
+  .ensure("purchaseDate")
+  .required()
+  .satisfiesRule("date")
+  .on(Asset);
