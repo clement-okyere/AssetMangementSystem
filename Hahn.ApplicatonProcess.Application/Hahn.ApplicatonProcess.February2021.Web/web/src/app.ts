@@ -1,5 +1,6 @@
 import { Router, RouterConfiguration } from "aurelia-router";
 import { inject } from "aurelia-dependency-injection";
+import { routes } from "./routes";
 
 @inject(RouterConfiguration, Router)
 export class App {
