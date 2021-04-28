@@ -2,6 +2,7 @@ import { inject } from "aurelia-dependency-injection";
 import { Asset } from "../models/asset";
 import { IDepartment } from "../models/department";
 import { BootstrapFormRenderer } from "../bootstrap-form-renderer";
+import { Router } from "aurelia-router";
 import {
   Validator,
   ValidationController,
@@ -10,7 +11,12 @@ import {
   ValidationRules,
 } from "aurelia-validation";
 
-@inject(ValidationControllerFactory, Validator, ValidationControllerFactory)
+@inject(
+  ValidationControllerFactory,
+  Validator,
+  ValidationControllerFactory,
+  Router
+)
 export class RegistrationForm {
   departments: IDepartment[] = [
     { id: 0, name: "HQ" },
@@ -23,12 +29,14 @@ export class RegistrationForm {
   private asset: Asset;
   public canSave: Boolean;
   controller: ValidationController;
+  router = null;
 
-  constructor(controllerFactory, private validator: Validator) {
+  constructor(controllerFactory, private validator: Validator, router) {
     this.controller = controllerFactory.createForCurrentScope();
     this.controller.validateTrigger = validateTrigger.changeOrBlur;
     this.controller.addRenderer(new BootstrapFormRenderer());
     this.controller.subscribe((event) => this.validateWhole());
+    this.router = router;
   }
 
   private validateWhole() {
@@ -51,5 +59,12 @@ export class RegistrationForm {
       this.asset.emailAddressOfDepartment ||
       this.asset.purchaseDate
     );
+  }
+
+  save() {
+    if (!this.canSave) {
+      return;
+    }
+    this.router.navigate("/assets/success");
   }
 }
