@@ -1,0 +1,118 @@
+<template>
+  <require from="./navbar.html"></require>
+  <navbar></navbar>
+   <div class="container">
+
+    <form class="well form-horizontal"  id="asset_form" submit.delegate="save()">
+<fieldset>
+
+<legend><center><h2><b>Asset Registration</b></h2></center></legend><br>
+
+
+<div class="form-group">
+  <label class="col-md-4 control-label">Asset Name</label>  
+  <div class="col-md-4 inputGroupContainer">
+  <div class="input-group">
+  <span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
+  <input   placeholder="Asset Name" class="form-control"  type="text" 
+   value.bind="asset.assetName & validate">
+    </div>
+  </div>
+</div>
+
+
+  <div class="form-group"> 
+  <label class="col-md-4 control-label">Select Department</label>
+    <div class="col-md-4 selectContainer">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+    <select  class="form-control selectpicker" value.bind="asset.department & validate">
+     <option model.bind="null">Choose...</option>
+        <option repeat.for="department of departments"
+                model.bind="department.id">
+          ${department.name}
+        </option>
+    </select>
+  </div>
+</div>
+</div>
+
+
+<div class="form-group">
+  <label class="col-md-4 control-label" >Country Of Department</label> 
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+  <input  
+        placeholder="Country Of Department"
+        class="form-control"  
+        type="text"
+        value.bind="asset.countryOfDepartment & validate">
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="form-group">
+  <label class="col-md-4 control-label">Department Email Address</label>  
+  <div class="col-md-4 inputGroupContainer">
+  <div class="input-group">
+  <span class="input-group-addon"><i class="glyphicon glyphicon-bookmark"></i></span>
+  <input placeholder="Department Email Address" 
+        class="form-control"  
+         type="email"
+         value.bind="asset.emailAddressOfDepartment & validate">
+    </div>
+  </div>
+</div>
+
+<!-- Text input-->
+
+<div class="form-group">
+  <label class="col-md-4 control-label" >Purchase Date</label> 
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+ <input type="date" class="form-control" id="purchaseDate" placeholder="Purchase Date"
+             value.bind="asset.purchaseDate & validate">
+    </div>
+  </div>
+</div>
+
+<!-- Text input-->
+
+<div class="form-group">
+  <label class="col-md-4 control-label" >Broken</label> 
+    <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+   <span class="input-group-addon"><i class="glyphicon glyphicon-glass"></i></span>
+     <!-- <label> -->
+      <input class="col-md-4 control-label" type="checkbox"  checked.bind="asset.broken">
+      </label>
+    </div>
+  </div>
+</div>
+
+ <div  class="pull-right">
+      <button type="button" 
+        class="btn btn-default" 
+        click.delegate="reset()"
+        disabled.bind="!canReset">
+            Reset
+      </button>
+
+       <button type="submit" 
+           class="btn btn-primary"
+           disabled.bind="!canSave">
+           <!-- disabled.bind="controller.errors.length || isValid"> -->
+             Send
+        </button>
+    </div>
+
+</fieldset>
+</form>
+</div>
+    </div><!-- /.container -->
+ </template>
