@@ -1,26 +1,30 @@
 import { inject } from "aurelia-dependency-injection";
-import { Asset } from "../models/asset";
-import { IDepartment } from "../models/department";
-import { getYearDifference, validateCountry } from "../utils/helper";
-import { BootstrapFormRenderer } from "../bootstrap-form-renderer";
-import { HttpClient } from "aurelia-http-client";
-import { Router } from "aurelia-router";
-import { DialogService } from "aurelia-dialog";
-import { Prompt } from "./prompt";
 import {
   Validator,
   ValidationController,
   validateTrigger,
   ValidationControllerFactory,
-  ValidationRules
+  ValidationRules,
 } from "aurelia-validation";
+import { Asset } from "../models/asset";
+import { BootstrapFormRenderer } from "../bootstrap-form-renderer";
+import { HttpClient } from "aurelia-http-client";
+import { DialogService } from "aurelia-dialog";
+import { Prompt } from "./prompt";
+import { Router } from "aurelia-router";
+import { getYearDifference, validateCountry } from "../utils/helper";
 
 const API_ENDPOINT = "/api/assets";
+interface IDepartment {
+  id: number;
+  name: string;
+}
 @inject(
   ValidationControllerFactory,
+  DialogService,
+  Router,
   Validator,
   ValidationControllerFactory,
-  Router
 )
 export class RegistrationForm {
   departments: IDepartment[] = [
@@ -33,24 +37,24 @@ export class RegistrationForm {
   ];
   private asset: Asset;
   public canSave: Boolean;
-  controller: ValidationController;
   httpClient: HttpClient;
-  router = null;
+  controller: ValidationController = null;
   dialogService = null;
-
+  router = null;
+    
   constructor(
     controllerFactory,
-    private validator: Validator,
+    dialogService,
     router,
-    dialogService
+    private validator: Validator,
   ) {
     this.controller = controllerFactory.createForCurrentScope();
     this.controller.validateTrigger = validateTrigger.changeOrBlur;
     this.controller.addRenderer(new BootstrapFormRenderer());
     this.controller.subscribe((event) => this.validateWhole());
     this.httpClient = new HttpClient();
-    this.router = router;
     this.dialogService = dialogService;
+    this.router = router;
   }
 
   private validateWhole() {
@@ -96,7 +100,17 @@ export class RegistrationForm {
   }
 
   reset() {
-    this.asset = new Asset();
+    this.dialogService
+      .open({
+        viewModel: Prompt,
+        model: "Are you sure you want to reset all data?",
+        lock: false,
+      })
+      .whenClosed((response) => {
+        if (!response.wasCancelled) {
+          this.asset = new Asset();
+        }
+      });
   }
 }
 
@@ -107,9 +121,9 @@ ValidationRules.customRule(
 );
 
 ValidationRules.customRule(
-    "country",
-    async (value, _obj) => await validateCountry(value),
-    `\${$displayName} is not a valid country.`
+  "country",
+  async (value, _obj) => await validateCountry(value),
+  `\${$displayName} is not a valid country.`
 );
 
 ValidationRules.ensure("assetName")
