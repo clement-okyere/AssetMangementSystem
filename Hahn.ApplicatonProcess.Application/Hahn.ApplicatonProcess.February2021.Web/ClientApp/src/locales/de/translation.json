@@ -1,5 +1,25 @@
 {
-  "asset": {
-    "assetName": "translated"
+  "asset_heading": "Asset-Registrierung",
+  "asset_label": "Name des Vermögenswerts",
+  "department_label": "Wählen Sie Abteilung",
+  "department_placeholder": "Wählen",
+  "country_of_department_label": "Land der Abteilung",
+  "department_email_address_label": "E-Mail-Adresse der Abteilung",
+  "purchase_date_label": "Kaufdatum",
+  "broken_label": "Gebrochen",
+  "reset": "Zurücksetzen",
+  "send": "Senden",
+  "reset_prompt": "Möchten Sie wirklich alle Daten zurücksetzen?",
+  "asset_failed_prompt": "Das Speichern von Assets ist fehlgeschlagen",
+  "success_header": "Erfolg",
+  "success_message": "Asset erfolgreich hinzugefügt",
+  "home_back_button": "Zurück zur Asset-Seite",
+  "ok_prompt": "ok",
+  "cancel_prompt": "stornieren",
+  "errorMessages": {
+    "required": "${$displayName} erforderlich!",
+    "minLength": "${$displayName} sollte zumindest sein  ${$config.length}!",
+    "date": "${$displayName} darf nicht älter als ein Jahr sein!",
+    "country": "${$displayName} muss gültiges Land sein!"
   }
 }
