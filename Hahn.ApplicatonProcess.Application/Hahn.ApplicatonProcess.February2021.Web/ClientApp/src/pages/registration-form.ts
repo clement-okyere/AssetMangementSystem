@@ -128,17 +128,26 @@ ValidationRules.customRule(
 );
 
 ValidationRules.ensure("assetName")
+  .displayName("asset name")
   .required()
+  .then()
   .minLength(5)
   .ensure("department")
   .required()
   .ensure("countryOfDepartment")
+  .displayName("country of department")
   .required()
+  .then()
   .satisfiesRule("country")
   .ensure("emailAddressOfDepartment")
+  .displayName("email address of department")
   .required()
+  .then()
   .email()
   .ensure("purchaseDate")
+  .displayName("purchase date")
   .required()
+  .then()
   .satisfiesRule("date")
   .on(Asset);
+
