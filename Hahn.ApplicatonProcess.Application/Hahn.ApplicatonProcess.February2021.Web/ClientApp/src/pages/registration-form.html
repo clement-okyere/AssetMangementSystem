@@ -6,15 +6,17 @@
     <form class="well form-horizontal"  id="asset_form" submit.delegate="save()">
 <fieldset>
 
-<legend><center><h2><b>Asset Registration</b></h2></center></legend><br>
-
+<legend style="text-align: center;">
+       <h2 style="font-weight: bold;" t="asset_heading">Asset Registration</h2>
+</legend>
+<br>
 
 <div class="form-group">
-  <label class="col-md-4 control-label">Asset Name</label>  
+  <label class="col-md-4 control-label" t="asset_label">Asset Name</label>  
   <div class="col-md-4 inputGroupContainer">
   <div class="input-group">
   <span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
-  <input   placeholder="Asset Name" class="form-control"  type="text" 
+  <input t="[placeholder]asset_label" class="form-control"  type="text" 
    value.bind="asset.assetName & validate">
     </div>
   </div>
@@ -22,12 +24,12 @@
 
 
   <div class="form-group"> 
-  <label class="col-md-4 control-label">Select Department</label>
+  <label class="col-md-4 control-label" t="department_label">Select Department</label>
     <div class="col-md-4 selectContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
     <select  class="form-control selectpicker" value.bind="asset.department & validate">
-     <option model.bind="null">Choose...</option>
+     <option model.bind="null" t="department_placeholder">Choose...</option>
         <option repeat.for="department of departments"
                 model.bind="department.id">
           ${department.name}
@@ -39,12 +41,14 @@
 
 
 <div class="form-group">
-  <label class="col-md-4 control-label" >Country Of Department</label> 
+  <label class="col-md-4 control-label" t="country_of_department_label">
+      Country Of Department
+  </label> 
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
   <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
   <input  
-        placeholder="Country Of Department"
+        t="[placeholder]country_of_department_label"
         class="form-control"  
         type="text"
         value.bind="asset.countryOfDepartment & validate">
@@ -53,14 +57,13 @@
 </div>
 
 
-
-
 <div class="form-group">
-  <label class="col-md-4 control-label">Department Email Address</label>  
+  <label class="col-md-4 control-label" t="department_email_address_label">Department Email Address</label>  
   <div class="col-md-4 inputGroupContainer">
   <div class="input-group">
   <span class="input-group-addon"><i class="glyphicon glyphicon-bookmark"></i></span>
-  <input placeholder="Department Email Address" 
+  <input 
+        t="[placeholder]department_email_address_label"
         class="form-control"  
          type="email"
          value.bind="asset.emailAddressOfDepartment & validate">
@@ -71,25 +74,32 @@
 <!-- Text input-->
 
 <div class="form-group">
-  <label class="col-md-4 control-label" >Purchase Date</label> 
+  <label class="col-md-4 control-label" t="purchase_date_label">
+        Purchase Date
+  </label> 
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
   <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
- <input type="date" class="form-control" id="purchaseDate" placeholder="Purchase Date"
-             value.bind="asset.purchaseDate & validate">
+ <input 
+       type="date" 
+       class="form-control"
+        id="purchaseDate" 
+        t="[placeholder]purchase_date_label"
+        value.bind="asset.purchaseDate & validate">
     </div>
   </div>
 </div>
 
-<!-- Text input-->
-
 <div class="form-group">
-  <label class="col-md-4 control-label" >Broken</label> 
+  <label class="col-md-4 control-label" t="broken_label">Broken</label> 
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
    <span class="input-group-addon"><i class="glyphicon glyphicon-glass"></i></span>
-     <!-- <label> -->
-      <input class="col-md-4 control-label" type="checkbox"  checked.bind="asset.broken">
+      <input 
+             class="col-md-4 control-label" 
+             type="checkbox"  
+             t="[placeholder]broken_label"
+             checked.bind="asset.broken">
       </label>
     </div>
   </div>
@@ -97,6 +107,7 @@
 
  <div  class="pull-right">
       <button type="button" 
+        t="reset"
         class="btn btn-default" 
         click.delegate="reset()"
         disabled.bind="!canReset">
@@ -104,9 +115,9 @@
       </button>
 
        <button type="submit" 
+           t="send"
            class="btn btn-primary"
            disabled.bind="!canSave">
-           <!-- disabled.bind="controller.errors.length || isValid"> -->
              Send
         </button>
     </div>
