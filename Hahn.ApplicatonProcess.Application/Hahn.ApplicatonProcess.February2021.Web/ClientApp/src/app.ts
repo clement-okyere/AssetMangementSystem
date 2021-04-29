@@ -14,6 +14,5 @@ export class App {
     config.map(routes);
 
     this.router = router;
-    console.log("main router", this.router);
   }
 }
