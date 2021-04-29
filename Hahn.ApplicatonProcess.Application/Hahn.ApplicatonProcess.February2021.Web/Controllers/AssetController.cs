@@ -2,6 +2,8 @@
 using Hahn.ApplicatonProcess.February2021.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
+using Swashbuckle.AspNetCore.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +22,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
             _logger = logger;
         }
 
+        /// <param name="id" example="1">Asset id</param>
         [HttpGet("id")]
         [ProducesResponseType(typeof(Asset),201)]
         [ProducesResponseType(typeof(string), 404)]
@@ -39,6 +42,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
 
         [HttpPost]
         [ProducesResponseType(201)]
+        [SwaggerRequestExample(typeof(Asset), typeof(AssetExample))]
         public IActionResult Post([FromBody] Asset asset)
         {
             _logger.LogInformation("Adding new asset {asset}", asset.AssetName);
@@ -47,6 +51,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
             return CreatedAtAction(nameof(GetById), new { id = asset.ID });
         }
 
+        /// <param name="id" example="1">Asset id</param>
         [HttpDelete]
         [ProducesResponseType(200)]
         public IActionResult Delete([FromQuery] int id)
@@ -57,6 +62,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
             return Ok();
         }
 
+        /// <param name="id" example="1">Asset id</param>
         [HttpPut("id")]
         [ProducesResponseType(200)]
         public IActionResult Update([FromQuery] int id, [FromBody] Asset asset)

@@ -19,6 +19,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Swashbuckle.AspNetCore.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,7 +49,10 @@ namespace Hahn.ApplicatonProcess.February2021.Web
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Hahn.ApplicatonProcess.February2021.Web", Version = "v1" });
+                c.ExampleFilters();
             });
+
+            services.AddSwaggerExamplesFromAssemblyOf<Asset>();
 
             services.AddTransient<IAssetRepository, AssetRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
