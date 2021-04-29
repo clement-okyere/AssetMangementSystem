@@ -27,6 +27,7 @@ dist/
 
 #Compiled js and map files
 *.js
+!*.config.js
 *.map
 
 # Visual Studio 2015 cache/options directory
