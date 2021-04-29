@@ -13,7 +13,7 @@ namespace Hahn.ApplicatonProcess.February2021.Domain.Models
         {
             return new Asset
             {
-                ID = 1,
+                ID = 0,
                 AssetName = "Keyboard",
                 CountryofDepartment = "Germany",
                 EmailAddressofDepartment = "asset@example.com",
