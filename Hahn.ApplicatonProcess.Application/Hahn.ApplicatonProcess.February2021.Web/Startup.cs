@@ -69,7 +69,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "web/dist";
+                configuration.RootPath = "ClientApp/dist";
             });
         }
 
@@ -106,7 +106,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web
 
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = "web";
+                spa.Options.SourcePath = "ClientApp";
 
                 // In Development env, ClientApp is served by Webpack Dev server
                 // In Production env, ClientApp is served using minified and bundled code from 'web/dist'
