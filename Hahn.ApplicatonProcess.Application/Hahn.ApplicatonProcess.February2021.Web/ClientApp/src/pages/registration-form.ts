@@ -6,6 +6,7 @@ import {
   ValidationControllerFactory,
   ValidationRules,
 } from "aurelia-validation";
+import { I18N } from "aurelia-i18n";
 import { Asset } from "../models/asset";
 import { BootstrapFormRenderer } from "../bootstrap-form-renderer";
 import { HttpClient } from "aurelia-http-client";
@@ -19,13 +20,7 @@ interface IDepartment {
   id: number;
   name: string;
 }
-@inject(
-  ValidationControllerFactory,
-  DialogService,
-  Router,
-  Validator,
-  ValidationControllerFactory,
-)
+@inject(ValidationControllerFactory, DialogService, Router, Validator, I18N)
 export class RegistrationForm {
   departments: IDepartment[] = [
     { id: 0, name: "HQ" },
@@ -39,14 +34,16 @@ export class RegistrationForm {
   public canSave: Boolean;
   httpClient: HttpClient;
   controller: ValidationController = null;
-  dialogService = null;
-  router = null;
-    
+  dialogService: DialogService = null;
+  i18n: I18N;
+  router: Router;
+
   constructor(
     controllerFactory,
     dialogService,
     router,
     private validator: Validator,
+    i18n: I18N
   ) {
     this.controller = controllerFactory.createForCurrentScope();
     this.controller.validateTrigger = validateTrigger.changeOrBlur;
@@ -55,6 +52,10 @@ export class RegistrationForm {
     this.httpClient = new HttpClient();
     this.dialogService = dialogService;
     this.router = router;
+    this.i18n = i18n;
+     this.i18n.setLocale("de").then(() => {
+       console.log("set German locale");
+     });
   }
 
   private validateWhole() {
@@ -93,7 +94,7 @@ export class RegistrationForm {
       .catch((err) => {
         this.dialogService.open({
           viewModel: Prompt,
-          model: "Asset saving failed",
+          model: `${this.i18n.tr("asset_failed_prompt")}`,
           lock: false,
         });
       });
@@ -103,7 +104,7 @@ export class RegistrationForm {
     this.dialogService
       .open({
         viewModel: Prompt,
-        model: "Are you sure you want to reset all data?",
+        model: `${this.i18n.tr("reset_prompt")}`,
         lock: false,
       })
       .whenClosed((response) => {
