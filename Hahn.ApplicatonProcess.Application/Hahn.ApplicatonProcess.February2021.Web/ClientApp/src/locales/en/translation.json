@@ -1,5 +1,25 @@
 {
-  "asset": {
-    "assetName": "translated"
+  "asset_heading": "Asset Registration",
+  "asset_label": "Asset Name",
+  "department_label": "Select Department",
+  "department_placeholder": "Choose",
+  "country_of_department_label": "Country Of Department",
+  "department_email_address_label": "Department Email Address",
+  "purchase_date_label": "Purchase Date",
+  "broken_label": "Broken",
+  "reset": "Reset",
+  "send": "Send",
+  "reset_prompt": "Are you sure you want to reset all data?",
+  "asset_failed_prompt": "Asset saving failed",
+  "success_header": "Success",
+  "success_message": "Asset added successfully",
+  "home_back_button": "Back to asset page",
+  "ok_prompt": "ok",
+  "cancel_prompt": "cancel",
+  "errorMessages": {
+    "required": "${$displayName} is required!",
+    "minLength": "${$displayName} should be at least  ${$config.length}!",
+    "date": "${$displayName} must not be older than one year!",
+    "country": "${$displayName} must be a valid country!"
   }
 }
