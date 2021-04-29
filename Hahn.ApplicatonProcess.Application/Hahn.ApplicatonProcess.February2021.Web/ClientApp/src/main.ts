@@ -28,7 +28,7 @@ export function configure(aurelia: Aurelia): void {
         attributes: aliases,
         lng: "de",
         fallbackLng: "en",
-        debug: true,
+        debug: false,
       });
     })
     .feature(PLATFORM.moduleName("resources/index"));
